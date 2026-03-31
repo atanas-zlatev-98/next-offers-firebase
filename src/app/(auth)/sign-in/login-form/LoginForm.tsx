@@ -9,7 +9,7 @@ import { useAuth } from "@/context/auth/useAuth"
 
 export function LoginForm() {
 
-  const { login } = useAuth();
+  const { login, error } = useAuth();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -26,7 +26,8 @@ export function LoginForm() {
         <CardTitle>Вход в системата</CardTitle>
         
         <CardDescription>
-          Въведете вашия имейл по-долу, за да влезете в акаунта си
+          {error.loginError ? <p className="text-red-500">{error.loginError}</p> : 'Въведете вашия имейл по-долу, за да влезете в акаунта си'}
+          
         </CardDescription>
 
       </CardHeader>

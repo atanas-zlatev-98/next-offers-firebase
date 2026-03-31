@@ -1,7 +1,6 @@
 'use server';
 import {cookies} from "next/headers";
 import {SignJWT, jwtVerify} from "jose";
-import { Auth, signOut } from "firebase/auth";
 
 const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 

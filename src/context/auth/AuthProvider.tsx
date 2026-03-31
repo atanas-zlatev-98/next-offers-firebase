@@ -3,22 +3,29 @@
 import { authClient } from "@/config/firebase/client";
 import { findUserById } from "@/services/authActions";
 import { userLogin } from "@/services/authService";
-import { sessionEnd } from "@/session/session";
 import { AuthContextType, AuthUser, LoginFormData } from "@/types/auth";
+import { AuthError } from "@/types/error";
+import { FirebaseError } from "firebase/app";
 import { onAuthStateChanged, signOut} from "firebase/auth";
+import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
+import { handleFirebaseError } from "@/config/firebase/firebaseErrorHandler";
 
 export const AuthContext = createContext<AuthContextType>({
   user: null,
   isAuthenticated: false,
   isLoading: false,
+  error: { loginError: "", logoutError: "" },
   login: async (loginData: LoginFormData) => {},
   logout: async () => {},
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
+
+  const router = useRouter();
   
   const [user, setUser] = useState<AuthUser | null>(null);
+  const [error,setError] = useState<AuthError>({ loginError: "", logoutError: "" });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -54,19 +61,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         body: JSON.stringify({ idToken }),
       });
 
+      router.push('/');
+
     } catch (err) {
-      if (err instanceof Error) {
-        console.error("Login error:", err.message);
+      if (err instanceof FirebaseError) {
+       setError((prev) => ({ ...prev, loginError: handleFirebaseError(err) }));
       }
     }
   };
 
   const logout = async () => {
-    await fetch("/api/auth/session", {
+    try{
+
+      await fetch("/api/auth/session", {
         method: "DELETE",
-    });
-    await signOut(authClient);
-    setUser(null);
+      });
+      
+      await signOut(authClient);
+
+      setUser(null);
+
+    }catch(err){
+      if (err instanceof FirebaseError) {
+        setError((prev) => ({ ...prev, logoutError: err.message }));
+      }
+    }
   };
 
   const authContextValue: AuthContextType = {
@@ -75,6 +94,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     isLoading,
     login,
     logout,
+    error
   };
 
   return (

@@ -1,4 +1,4 @@
-import { Auth } from "firebase/auth";
+import { AuthError } from "./error";
 
 export type Role = "admin" | "user";
 
@@ -18,6 +18,7 @@ export type AuthContextType = {
     user: AuthUser | null;
     isAuthenticated: boolean;
     isLoading: boolean;
+    error:AuthError;
     login: (loginData: LoginFormData) => Promise<void>;
     logout: () => Promise<void>;
 }
