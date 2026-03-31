@@ -9,6 +9,7 @@ const authRoutes = ["/sign-in"];
 
 
 export default async function middleware(req: NextRequest) {
+    
     const { pathname } = req.nextUrl;
     const session = req.cookies.get("session")?.value;
 
