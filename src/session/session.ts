@@ -36,10 +36,3 @@ export async function destroySession() {
     const cookieStore = await cookies();
     cookieStore.delete("session");
 }
-
-export const sessionEnd = async (client: Auth) => {
-    await fetch("/api/auth/session", {
-        method: "DELETE",
-    });
-    await signOut(client);
-}

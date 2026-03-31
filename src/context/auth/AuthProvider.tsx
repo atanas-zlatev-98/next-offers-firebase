@@ -5,7 +5,7 @@ import { findUserById } from "@/services/authActions";
 import { userLogin } from "@/services/authService";
 import { sessionEnd } from "@/session/session";
 import { AuthContextType, AuthUser, LoginFormData } from "@/types/auth";
-import { onAuthStateChanged} from "firebase/auth";
+import { onAuthStateChanged, signOut} from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext<AuthContextType>({
@@ -62,7 +62,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const logout = async () => {
-    await sessionEnd(authClient);
+    await fetch("/api/auth/session", {
+        method: "DELETE",
+    });
+    await signOut(authClient);
     setUser(null);
   };
 
