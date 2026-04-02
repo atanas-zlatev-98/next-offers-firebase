@@ -1,10 +1,12 @@
 
 'use client'
+
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { createNewUser } from "@/services/userActions"
 
 export function AddUserForm() {
 
@@ -15,6 +17,12 @@ export function AddUserForm() {
 
     const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        try{
+            await createNewUser({username,email,password});
+        }catch(err){
+            console.log("Error creating user:", err);
+        }
     }
 
   return (
