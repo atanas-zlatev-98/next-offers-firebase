@@ -87,7 +87,7 @@ export function AddUserForm() {
               />
             </div>
           </div>
-          <Button className="w-full mt-6" type="submit">Добави потребител</Button>
+          <Button className="w-full mt-6 cursor-pointer" type="submit">Добави потребител</Button>
         </form>
       </CardContent>
     </Card>

@@ -58,7 +58,7 @@ export function LoginForm() {
               />
             </div>
           </div>
-          <Button className="w-full mt-6" type="submit">Вход</Button>
+          <Button className="w-full mt-6 cursor-pointer" type="submit">Вход</Button>
         </form>
       </CardContent>
     </Card>

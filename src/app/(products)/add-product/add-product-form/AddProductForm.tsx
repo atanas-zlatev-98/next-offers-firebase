@@ -93,7 +93,7 @@ export function AddProductForm({ userId }: { userId: string }) {
               />
             </div>
           </div>
-          <Button className="w-full mt-6" type="submit">Добави продукт</Button>
+          <Button className="w-full mt-6 cursor-pointer" type="submit">Добави продукт</Button>
         </form>
       </CardContent>
     </Card>
