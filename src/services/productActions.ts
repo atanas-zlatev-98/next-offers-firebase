@@ -24,3 +24,16 @@ export const createNewProduct = async (userId: string, product: Product) => {
 
   return { success: true };
 };
+
+export async function getAllProducts() {
+  const snapshot = await adminDb.collection("products").get();
+  return snapshot.docs.map((doc) => {
+    const data = doc.data();
+    return {
+      id: doc.id,
+      label: data.productName,
+      value: data.productPrice,
+      unit: data.unit,
+    };
+  });
+}
