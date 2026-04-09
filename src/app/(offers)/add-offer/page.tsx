@@ -50,7 +50,7 @@ export default function AddOfferPage() {
 
   return (
     <div className="pt-20 flex justify-center items-center flex-col gap-10">
-      <h1 className="text-2xl font-bold">Създаване на оферта / ценова листа</h1>
+      <h1 className="text-2xl font-bold text-center">Създаване на оферта / ценова листа</h1>
 
       <AddFormModal products={products} setNewOffer={setNewOffer} />
       {newOffer.length > 0 && (
