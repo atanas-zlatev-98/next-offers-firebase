@@ -22,7 +22,7 @@ export function AddProductForm({ userId }: { userId: string }) {
         e.preventDefault();
 
         try{
-            const response = await createNewProduct(userId, { productName, productPrice, manufacturer,unit });
+            const response = await createNewProduct(userId, { productName, productPrice, manufacturer, unit });
 
             if(response.success){
                 setProductName("");

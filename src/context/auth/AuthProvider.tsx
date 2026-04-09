@@ -78,8 +78,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       });
       
       await signOut(authClient);
-
       setUser(null);
+      router.push('/');
 
     }catch(err){
       if (err instanceof FirebaseError) {

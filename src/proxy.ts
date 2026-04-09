@@ -4,7 +4,7 @@ import { jwtVerify } from "jose";
 
 const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
-const protectedRoutes = ["/products","/offers"];
+const protectedRoutes = ["/products","/offers","/add-offer"];
 const adminRoutes = ["/admin","/add-user","/add-product"];
 const authRoutes = ["/sign-in"];
 
